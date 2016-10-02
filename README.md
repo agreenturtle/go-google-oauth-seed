@@ -1,5 +1,5 @@
-# go-guest-book
+# go-google-oauth-seed
 
 Environmental Variables Used
-  - GO_GUESTBOOK_GOOGLE_CLIENT_ID
-  - GO_GUESTBOOK_GOOGLE_CLIENT_SECRET
+  - GO_GOOGLE_OAUTH_SEED_CLIENT_ID
+  - GO_GOOGLE_OAUTH_SEED_CLIENT_SECRET

@@ -15,8 +15,8 @@ import (
 // Your credentials should be obtained from the Google
 // Developer Console (https://console.developers.google.com).
 var oauthCfg = &oauth2.Config{
-  ClientID:     os.Getenv("GO_GUESTBOOK_GOOGLE_CLIENT_ID"),
-  ClientSecret: os.Getenv("GO_GUESTBOOK_GOOGLE_CLIENT_SECRET"),
+  ClientID:     os.Getenv("GO_GOOGLE_OAUTH_SEED_CLIENT_ID"),
+  ClientSecret: os.Getenv("GO_GOOGLE_OAUTH_SEED_CLIENT_SECRET"),
   RedirectURL:  "http://localhost:8000/auth/google/callback",
   Scopes: []string{"profile"},
   Endpoint: google.Endpoint,
@@ -33,7 +33,7 @@ func GoogleCallbackHandler(w http.ResponseWriter, r *http.Request, _ httprouter.
   // found in the "code" attribute in the request.
   code := r.FormValue("code")
   token, err := oauthCfg.Exchange(oauth2.NoContext, code)
-
+  // if error exists,
   if err != nil {
     http.Redirect(w, r, "/error", http.StatusTemporaryRedirect)
   } else {
