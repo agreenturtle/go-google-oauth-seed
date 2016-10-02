@@ -12,11 +12,6 @@ import (
   "github.com/julienschmidt/httprouter"
 )
 
-var (
-    code  = ""
-    token = ""
-)
-
 // Your credentials should be obtained from the Google
 // Developer Console (https://console.developers.google.com).
 var oauthCfg = &oauth2.Config{
@@ -36,17 +31,15 @@ func GoogleHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) 
 func GoogleCallbackHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
   // Uses temporary token provided by Google to get Token. Temporary token is
   // found in the "code" attribute in the request.
-  fmt.Println("****** New User ******")
   code := r.FormValue("code")
   token, err := oauthCfg.Exchange(oauth2.NoContext, code)
+
   if err != nil {
-    fmt.Println("Failed Login")
     http.Redirect(w, r, "/error", http.StatusTemporaryRedirect)
   } else {
-    fmt.Printf("Successful Login! Token Value: %v\n", token)
+    fmt.Printf("Logging Token to prevent error %v\n", token)
     http.Redirect(w, r, "/index", http.StatusTemporaryRedirect)
   }
-  fmt.Println("******************\n")
 }
 
 func loginPageHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
